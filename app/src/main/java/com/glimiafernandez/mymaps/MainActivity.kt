@@ -1,22 +1,30 @@
 package com.glimiafernandez.mymaps
 
+
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.glimiafernandez.mymaps.models.Place
 import com.glimiafernandez.mymaps.models.UserMap
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.internal.ContextUtils.getActivity
 
+const val EXTRA_MAP_TITLE ="EXTRA_MAP_TITLE"
 const val EXTRA_USER_MAP = "EXTRA_USER_MAP"
 private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
+    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val rvMaps = findViewById<RecyclerView>(R.id.rvMaps)
-
+        val favCreateMap =findViewById<FloatingActionButton>(R.id.fabCreateMap)
         val userMap = generateSampleData()
 
 
@@ -38,6 +46,22 @@ class MainActivity : AppCompatActivity() {
 
         //when user tap on view , navigate new activity
 
+        favCreateMap.setOnClickListener {
+            val intent = Intent( getActivity(this) , MapsActivity::class.java)
+            intent.putExtra(EXTRA_MAP_TITLE, "New map Name")
+            getActivity(this)?.startActivity(intent)
+
+
+        }
+
+
+        var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // There are no request codes
+                val data: Intent? = result.data
+
+            }
+        }
 
 
 
