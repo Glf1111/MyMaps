@@ -63,7 +63,6 @@ class DisplayMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         Log.i(TAG,"user map to render:${userMap.title}" )
-        // Add a marker in Sydney and move the camera
-        // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
     }
 }
