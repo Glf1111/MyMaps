@@ -4,10 +4,12 @@ package com.glimiafernandez.mymaps
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.Toast
@@ -21,8 +23,10 @@ import com.glimiafernandez.mymaps.models.Place
 import com.glimiafernandez.mymaps.models.UserMap
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.internal.ContextUtils.getActivity
+import java.io.*
+import java.text.FieldPosition
 
-
+private const val FILE_NAME = "UserMaps.data"
 const val EXTRA_MAP_TITLE ="EXTRA_MAP_TITLE"
 const val EXTRA_USER_MAP = "EXTRA_USER_MAP"
 private const val TAG = "MainActivity"
@@ -39,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             Log.i(TAG,"onActivityResult with new map ${userData.title}" )
             userMap.add(userData)
             mapsAdapter.notifyItemInserted(userMap.size-1)
+            serializeUserMaps(this ,userMap)
 
         }
 
@@ -49,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val rvMaps = findViewById<RecyclerView>(R.id.rvMaps)
         val favCreateMap = findViewById<FloatingActionButton>(R.id.fabCreateMap)
-        userMap = generateSampleData().toMutableList()
+        userMap = deserializableUserMaps(this).toMutableList()
 
 
         //Set the layout manager on the recycler view
@@ -72,6 +77,7 @@ class MainActivity : AppCompatActivity() {
         favCreateMap.setOnClickListener {
             showAlertDialog()
         }
+
 
     }
         @SuppressLint("RestrictedApi")
@@ -104,24 +110,46 @@ class MainActivity : AppCompatActivity() {
                 dialog.dismiss()
 
             }
-
-
-
-
-
-
-
-            }
         }
+    private fun deserializableUserMaps(context: Context):List<UserMap>{
+        Log.i(TAG, "deserializableUserMap")
+        val dataFile = getDataFile(context)
+        if(!dataFile.exists()){
+            Log.i(TAG,"Data file does not exist yet")
+            return emptyList()
+        }
+        ObjectInputStream(FileInputStream(dataFile)).use { return it.readObject() as List<UserMap> }
+
+
+
+
+    }
+
+    private fun serializeUserMaps(context :Context,userMap: List<UserMap>){
+        Log.i(TAG, "SerializeUserMap")
+        ObjectOutputStream(FileOutputStream(getDataFile(context))).use { it.writeObject(userMap) }
+    }
+
+  //Return the file which other methods can read_from and write_to the file
+    private fun getDataFile(context :Context): File {
+           Log.i(TAG,"Getting from the directory ${context.filesDir}")
+
+           return File(context.filesDir,FILE_NAME)
+       }
+
+        //private fun longClickDelete(position: Int){
+
+
+
+        //}
+
+}
 
 
 
 
 
-
-
-
-    private fun generateSampleData(): List<UserMap> {
+        private fun generateSampleData(): List<UserMap> {
         return listOf(
             UserMap(
                 "Memories from University",
