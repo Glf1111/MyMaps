@@ -9,8 +9,10 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
+import android.view.ContextMenu
 import android.view.LayoutInflater
+import android.view.MenuInflater
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -24,7 +26,6 @@ import com.glimiafernandez.mymaps.models.UserMap
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.internal.ContextUtils.getActivity
 import java.io.*
-import java.text.FieldPosition
 
 private const val FILE_NAME = "UserMaps.data"
 const val EXTRA_MAP_TITLE ="EXTRA_MAP_TITLE"
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
             serializeUserMaps(this ,userMap)
 
         }
+        val test= findViewById<View>(R.id.testButton)
 
     }
     @SuppressLint("RestrictedApi")
@@ -137,11 +139,24 @@ class MainActivity : AppCompatActivity() {
            return File(context.filesDir,FILE_NAME)
        }
 
-        //private fun longClickDelete(position: Int){
+
+    override fun registerForContextMenu(view: View?) {
+        val test =findViewById<View>(R.id.testButton)
+        super.registerForContextMenu(test)
+    }
+
+
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+
+        super.onCreateContextMenu(menu,v, menuInfo)
+        val inflater :MenuInflater = menuInflater
+        inflater.inflate(R.menu.context_menu,menu)
+        Log.i(TAG, "create menu ")
+    }
 
 
 
-        //}
+
 
 }
 
