@@ -17,7 +17,7 @@ class MapsAdapter(private val context: Context, private val userMap:List <UserMa
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-       val view = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1,parent,false)
+       val view = LayoutInflater.from(context).inflate(R.layout.item_user_map,parent,false)
         return ViewHolder(view)
     }
 
@@ -27,11 +27,14 @@ class MapsAdapter(private val context: Context, private val userMap:List <UserMa
             Log.i(TAG, "clicked positions $position")
             onClickListener.onItemCLick(position)
         }
-        val textViewTitle = holder.itemView.findViewById<TextView>(android.R.id.text1)
+        val textViewTitle = holder.itemView.findViewById<TextView>(R.id.tvMapsTitle)
         textViewTitle.text = userMap.title
     }
 
     override fun getItemCount()= userMap.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
 }
+
+

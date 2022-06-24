@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.View
 import android.widget.EditText
+import android.widget.ListView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -47,13 +48,15 @@ class MainActivity : AppCompatActivity() {
             serializeUserMaps(this ,userMap)
 
         }
-        val test= findViewById<View>(R.id.testButton)
+
 
     }
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
         val rvMaps = findViewById<RecyclerView>(R.id.rvMaps)
         val favCreateMap = findViewById<FloatingActionButton>(R.id.fabCreateMap)
         userMap = deserializableUserMaps(this).toMutableList()
@@ -79,7 +82,6 @@ class MainActivity : AppCompatActivity() {
         favCreateMap.setOnClickListener {
             showAlertDialog()
         }
-
 
     }
         @SuppressLint("RestrictedApi")
@@ -138,23 +140,6 @@ class MainActivity : AppCompatActivity() {
 
            return File(context.filesDir,FILE_NAME)
        }
-
-
-    override fun registerForContextMenu(view: View?) {
-        val test =findViewById<View>(R.id.testButton)
-        super.registerForContextMenu(test)
-    }
-
-
-    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
-
-        super.onCreateContextMenu(menu,v, menuInfo)
-        val inflater :MenuInflater = menuInflater
-        inflater.inflate(R.menu.context_menu,menu)
-        Log.i(TAG, "create menu ")
-    }
-
-
 
 
 
