@@ -9,12 +9,8 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.ContextMenu
 import android.view.LayoutInflater
-import android.view.MenuInflater
-import android.view.View
 import android.widget.EditText
-import android.widget.ListView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -51,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-    @SuppressLint("RestrictedApi")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -71,6 +67,7 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this@MainActivity, DisplayMapActivity::class.java)
                 intent.putExtra(EXTRA_USER_MAP, userMap[position])
                 startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_rigth , R.anim.slide_out_left)
 
 
             }
@@ -84,6 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
         @SuppressLint("RestrictedApi")
         fun showAlertDialog() {
             val mapFormView = LayoutInflater.from(this).inflate(R.layout.dialog_create_map, null)
