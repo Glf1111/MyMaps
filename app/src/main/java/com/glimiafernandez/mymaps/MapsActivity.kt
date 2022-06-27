@@ -67,8 +67,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
            return true
        }
         //Create a list with a tittle and place (place is generated for each marker)
-        val places = markers.map {marker ->Place(marker.title , marker.snippet, marker.position.latitude , marker.position.longitude) }
-        val userMap = intent.getStringExtra(EXTRA_MAP_TITLE)?.let { UserMap(it, places ) }
+        val places = markers.map {marker -> marker.title?.let { marker.snippet?.let { it1 ->
+            Place(it,
+                it1, marker.position.latitude , marker.position.longitude)
+        } } }
+        val userMap = intent.getStringExtra(EXTRA_MAP_TITLE)?.let { UserMap(it,
+            places as List<Place>
+        ) }
+
         val data = Intent()
         data.putExtra(EXTRA_USER_MAP,userMap)
         setResult(Activity.RESULT_OK,data)

@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -45,8 +46,11 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-
     }
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +84,8 @@ class MainActivity : AppCompatActivity() {
             showAlertDialog()
         }
 
+
+
     }
 
         @SuppressLint("RestrictedApi")
@@ -111,7 +117,32 @@ class MainActivity : AppCompatActivity() {
                 startForResult.launch(intent)
                 dialog.dismiss()
 
+
             }
+
+
+
+        }
+    private fun countMarkers(){
+            userMap.forEach {
+                var numberPlace = findViewById<TextView>(R.id.tvNo_Markers)
+                Log.i(TAG, "places is ${it.places}")
+                return@forEach
+            }
+
+
+
+
+
+    /*  userMap.forEach{
+            for(i in userMap.indices  ){
+                val numberOfPlace =findViewById<TextView>(R.id.tvNo_Markers)
+                numberOfPlace.text  = it.places.toString().toInt().toString()
+            }
+        }*/
+    }
+
+
         }
     private fun deserializableUserMaps(context: Context):List<UserMap>{
         Log.i(TAG, "deserializableUserMap")
@@ -141,7 +172,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-}
+
 
 
 

@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tvMapsTitle"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:padding="10dp"
-    android:textSize="24sp"
-    tools:text="Example">
+    android:layout_height="match_parent">
 
-</TextView>
+    <TextView
+        android:id="@+id/tvMapsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:padding="10dp"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Example" />
+
+    <TextView
+        android:id="@+id/tvPlaces"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:text="@string/places"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/tvMapsTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvMapsTitle" />
+
+    <TextView
+        android:id="@+id/tvNo.Markers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="2dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/tvPlaces"
+        app:layout_constraintTop_toTopOf="@id/tvPlaces"
+        tools:text="3" />
+</androidx.constraintlayout.widget.ConstraintLayout>
