@@ -74,6 +74,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val userMap = intent.getStringExtra(EXTRA_MAP_TITLE)?.let { UserMap(it,
             places as List<Place>
         ) }
+
         val data = Intent()
         data.putExtra(EXTRA_USER_MAP,userMap)
         setResult(Activity.RESULT_OK,data)
